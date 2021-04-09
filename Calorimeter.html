@@ -102,8 +102,8 @@
                     var c = eval(prompt("Enter the specific heat in cal/g.ºC"));
                     var tempVariation = eval(prompt("Enter the temperature variation (ºC), that is, the final temperature minus the initial temperature"));
         
-                    var Q = (M * c) * tempVariation;
-                    const Q = Q.toFixed(0)
+                    var QNotFixed = (M * c) * tempVariation;
+                    const Q = QNotFixed.toFixed(0);
                 } else if (result == 2) {
                     var power = eval(prompt("Enter the power in watts"));
                     var time = eval(prompt("Enter the time in seconds"));
