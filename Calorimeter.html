@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Calorimeter</title>
+    </head>
+    <body>
+
+        <script>
+
+            alert("Welcome to the Calorimeter!");
+        
+            const start = eval(prompt("Would you like to convert something? [Type 1 to convert something]; [Click Ok to proceed]"));
+        
+            function maybeConvert() {
+                const convert = eval(prompt("What would you like to convert? [Enter 1 to convert Joules to calories]; [Enter 2 to calculate the mass or convert]; [Enter 3 to calculate the temperature variation]; [Click Ok to proceed]"));
+        
+                if (convert == 1) {convertJToCal()}
+                else if (convert == 2) {calculateMass()}
+                else if (convert == 3) {calculateTempVariation()}
+
+                const anythingElse = eval(prompt("Type 1 if you would like to convert something else or click Ok to proceed"));
+                if (anythingElse == 1) {maybeConvert()}
+            }
+            if (start == 1) {maybeConvert()}
+        
+            function calculations() {
+                const result = eval(prompt("What would you like to calculate? [Enter 1 to calculate the amount of heat]; [Enter 2 to calculate the heat capacity]; [Enter 3 to calculate the latent heat]; [Enter 4 to calculate the mass]; [Enter 5 to calculate the temperature]; [Click ok to exit]"));
+        
+                if (result == 1) {calculateAmountHeat()}
+                else if (result == 2) {calculateHeatCapacity()}
+                else if (result == 3) {calculateLatentHeat()}
+                else if (result == 4) {calculateMass()}
+                else if (result == 5) {calculateTemp()}
+            }
+            calculations();
+        
+        
+            // Converters
+        
+            function convertJToCal() {
+                var j = eval(prompt("Enter the number of Joules to convert"));
+        
+                const cal = j / 4.18;
+                alert("The calorie amount is " + cal.toFixed(0) + " calories" + "  | Write down the value!");
+                finalNotice();
+            }
+        
+            function calculateMass() {
+                var result = parseInt(prompt("What values do you have? [Enter 1 for specific heat, temperature variation and amount of heat]; [Type 2 for specific heat and thermal capacity]; [Enter 3 for the amount of heat and latent heat]; [Enter 4 for density] [Enter 5 to convert from kilograms to grams]"));
+        
+                if (result == 1){
+                    var c = eval(prompt("Enter the specific heat in cal/g.ºC"));
+                    var tempVariation = eval(prompt("Enter the temperature variation (ºC), that is, the final temperature minus the initial temperature"));
+                    var Q = eval(prompt("Enter the amount of sensitive heat in calories"));
+        
+                    var M = Q / (c * tempVariation);
+                } else if (result == 2) {
+                    var c = eval(prompt("Enter the specific heat in cal/g.ºC"));
+                    var C = eval(prompt("Inform the heat capacity in cal/ºC"));
+        
+                    const M = C / c;
+                } else if (result == 3){
+                    var Q = prompt("Enter the amount of sensitive heat in calories");
+                    var L = eval(prompt("Enter the latent heat in cal/g"));
+        
+                    const M = Q / L;
+                } else if (result == 4) {
+                    var density = eval(prompt("Enter the density in kg/m3"));
+                    var volume = eval(prompt("Enter the volume in m3"));
+        
+                    const M = density * volume;
+                } else if (result == 5) {
+                    var kg = eval(prompt("Enter the mass in kilograms to convert"));
+        
+                    const M = kg * 1000;
+                } else {maybeConvert()}
+        
+                alert("The mass in grams is " + M.toFixed(0) + " grams" + "  | Write down the value!");
+                finalNotice();
+            }
+        
+            function calculateTempVariation() {
+                var initialTemp = eval(prompt("Enter the initial temperature in ºC"));
+                var finalTemp = eval(prompt("Enter the final temperature in ºC"));
+        
+                const tempVariation = finalTemp - (initialTemp);
+                alert("The temperature variation is " + tempVariation.toFixed(0) + " ºC" + "  | Write down the value!");
+                finalNotice();
+            }
+        
+        
+            // Formulas
+        
+            function calculateAmountHeat() {
+                var result = parseInt(prompt("What values do you have? [Type 1 for mass, specific heat, temperature variation]; [Type 2 for power and time]"));
+        
+                if (result = 1) {
+                    var M = eval(prompt("Enter the body mass in grams"));
+                    var c = eval(prompt("Enter the specific heat in cal/g.ºC"));
+                    var tempVariation = eval(prompt("Enter the temperature variation (ºC), that is, the final temperature minus the initial temperature"));
+        
+                    var Q = (M * c) * tempVariation;
+                    const Q = Q.toFixed(0)
+                } else if (result == 2) {
+                    var power = eval(prompt("Enter the power in watts"));
+                    var time = eval(prompt("Enter the time in seconds"));
+        
+                    var energyInJoules = power * time;
+                    var energyInCalorie = energyInJoules / 4.18;
+                    const Q = energyInCalorie.toFixed(2);
+                } else {calculations()}
+        
+                alert("The amount of calorie sensitive heat is " + Q);
+                finalNotice();
+            }
+        
+            function calculateHeatCapacity() {
+                var M = eval(prompt("Enter the body mass in grams"));
+                var c = eval(prompt("Enter the specific heat in cal/g.ºC"));
+        
+                const C = M * c;
+                alert("The heat capacity is " + C.toFixed(2) + " cal/ºC");
+                finalNotice();
+            }
+        
+            function calculateLatentHeat() {
+                var M = eval(prompt("Enter the body mass in grams"));
+                var L = eval(prompt("Enter the latent heat in cal/g"));
+        
+                const Q = M * L;
+                alert("The amount of calorie sensitive heat is " + Q.toFixed(2));
+                finalNotice();
+            }
+
+            function calculateTemp() {
+                var result = parseInt(prompt("What values do you have? [Type 1 for mass, specific heat, amount of heat]; [Type 2 for heat capacity, amount of heat]"));
+                if (result == 1) {
+                    var M = eval(prompt("Enter the body mass in grams"));
+                    var c = eval(prompt("Enter the specific heat in cal/g.ºC"));
+                    var Q = eval(prompt("Enter the amount of sensitive heat in calories"));
+
+                    var tempVariation = (M * c) * Q;
+                }
+                else if (result == 2) {
+                    var C = eval(prompt("Inform the heat capacity in cal/ºC"));
+                    var Q = eval(prompt("Enter the amount of sensitive heat in calories"));
+
+                    const tempVariation = Q / C;
+                }
+
+                alert("The temperature variation is " + tempVariation.toFixed(0) + " ºC");
+                finalNotice();
+            }
+
+            function finalNotice() {
+                const final = prompt("Type 1 to calculate more or type 2 to convert something");
+                if (final == 1) {calculations()}
+                else if (final == 2) {maybeConvert()}
+            }
+        
+        
+            alert("Thanks for your visit!");
+        
+        </script>
+    </body>
+</html>
